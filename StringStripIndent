@@ -1,0 +1,14 @@
+String textBlock = """
+        {
+            "name": "John",
+            "age": 30
+        }
+        """;
+System.out.println(textBlock.stripIndent());
+
+
+
+{
+    "name": "John",
+    "age": 30
+}
