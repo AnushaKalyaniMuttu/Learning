@@ -1,0 +1,5 @@
+SequencedSet<String> set = new LinkedHashSet<>();
+set.add("Apple");
+set.add("Banana");
+System.out.println(set.getFirst()); // Output: Apple
+System.out.println(set.reversed()); // Output: [Banana, Apple]
