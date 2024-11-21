@@ -1,0 +1,11 @@
+import jdk.incubator.concurrent.ScopedValue;
+
+public class ScopedValueExample {
+    private static final ScopedValue<String> USER_ID = ScopedValue.newInstance();
+
+    public static void main(String[] args) {
+        ScopedValue.where(USER_ID, "User123").run(() -> {
+            System.out.println("Current User ID: " + USER_ID.get());
+        });
+    }
+}
