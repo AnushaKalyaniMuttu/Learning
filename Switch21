@@ -1,0 +1,14 @@
+public class PatternMatchingSwitchExample {
+    public static void main(String[] args) {
+        Object obj = 42;
+
+        String result = switch (obj) {
+            case Integer i -> "Integer: " + i;
+            case String s -> "String: " + s;
+            case null -> "It's null";
+            default -> "Unknown type";
+        };
+
+        System.out.println(result);
+    }
+}
