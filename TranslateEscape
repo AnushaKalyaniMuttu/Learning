@@ -1,0 +1,3 @@
+String text = "Hello\nWorld";
+System.out.println(text.translateEscapes()); // Outputs: Hello
+                                             //          World
