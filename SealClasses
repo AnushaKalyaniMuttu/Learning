@@ -1,0 +1,36 @@
+ public sealed interface Shape permits Circle, Rectangle, Triangle {}
+
+public final class Circle implements Shape {
+    double radius;
+    public Circle(double radius) { this.radius = radius; }
+}
+
+public final class Rectangle implements Shape {
+    double length, width;
+    public Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+}
+
+public final class Triangle implements Shape {
+    double base, height;
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Shape shape = new Circle(5);
+
+        String result = switch (shape) {
+            case Circle c -> "Circle with radius " + c.radius;
+            case Rectangle r -> "Rectangle with length " + r.length + " and width " + r.width;
+            case Triangle t -> "Triangle with base " + t.base + " and height " + t.height;
+        };
+
+        System.out.println(result); // Outputs: Circle with radius 5
+    }
+}
