@@ -1,0 +1,2 @@
+List<String> list = Arrays.asList("apple", "banana", "cherry");
+list.forEach((var fruit) -> System.out.println(fruit)); // Type is inferred automatically
