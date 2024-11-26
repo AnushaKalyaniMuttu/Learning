@@ -1,0 +1,20 @@
+public class Java23Example {
+
+    // Record class (introduced in Java 14, enhanced in Java 23)
+    record Person(String name, int age) {}
+
+    public static void main(String[] args) {
+        // Example using pattern matching for switch
+        Object obj = new Person("Alice", 30);
+        
+        // Using the switch with pattern matching
+        String message = switch (obj) {
+            case Person(String name, int age) -> "Person: " + name + ", Age: " + age;
+            case String s -> "String: " + s;
+            case Integer i -> "Integer: " + i;
+            default -> "Unknown type";
+        };
+        
+        System.out.println(message);
+    }
+}
