@@ -1,0 +1,8 @@
+public record Point(int x, int y) {}
+
+public class Main {
+    public static void main(String[] args) {
+        Point point = new Point(5, 10);
+        System.out.println("Point coordinates: (" + point.x() + ", " + point.y() + ")");
+    }
+}
