@@ -1,0 +1,18 @@
+import java.util.*;
+import java.util.stream.*;
+
+public class FlatMapExample {
+    public static void main(String[] args) {
+        List<List<String>> nestedList = Arrays.asList(
+            Arrays.asList("a", "b"),
+            Arrays.asList("c", "d"),
+            Arrays.asList("e", "f")
+        );
+
+        List<String> flatList = nestedList.stream()
+            .flatMap(Collection::stream) // Flatten the nested lists
+            .collect(Collectors.toList());
+
+        System.out.println(flatList); // Output: [a, b, c, d, e, f]
+    }
+}
