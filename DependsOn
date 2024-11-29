@@ -1,0 +1,18 @@
+@Configuration
+public class AppConfig {
+
+    @Bean
+    @DependsOn("beanB")
+    public MyService beanA() {
+        return new MyService();
+    }
+
+    @Bean
+    public AnotherService beanB() {
+        return new AnotherService();
+    }
+}
+
+
+//Here, beanA depends on beanB, so beanB will be created first.
+
