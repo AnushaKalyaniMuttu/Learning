@@ -1,0 +1,14 @@
+import React, { Component } from 'react';
+
+class MountingExample extends Component {
+  componentDidMount() {
+    console.log("Component mounted!");
+    // Fetching data or initializing listeners
+  }
+
+  render() {
+    return <h1>Hello, React!</h1>;
+  }
+}
+
+export default MountingExample;
