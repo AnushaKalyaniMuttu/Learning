@@ -1,0 +1,40 @@
+import static org.mockito.Mockito.*;
+import static org.powermock.api.mockito.PowerMockito.*;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.*;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+// The class to be tested
+public class MyClass {
+    public String someMethod() {
+        MyDependency dep = new MyDependency(); // new object creation
+        return dep.doSomething();
+    }
+}
+
+// The class to mock
+public class MyDependency {
+    public String doSomething() {
+        return "Real Result";
+    }
+}
+
+@RunWith(PowerMockRunner.class)  // Use PowerMock runner
+public class MyClassTest {
+
+    @Test
+    public void testMockNewObject() throws Exception {
+        // Mock the constructor of MyDependency class
+        MyDependency mockDep = mock(MyDependency.class);
+        whenNew(MyDependency.class).withNoArguments().thenReturn(mockDep);
+        when(mockDep.doSomething()).thenReturn("Mocked Result");
+
+        MyClass myClass = new MyClass();
+        String result = myClass.someMethod();
+
+        // Verify that the result is from the mocked object
+        assertEquals("Mocked Result", result);
+    }
+}
