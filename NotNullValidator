@@ -1,0 +1,20 @@
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import java.util.Set;
+
+public class ValidatorExample {
+    public static void main(String[] args) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        User user = new User();
+        // Do not set the name to simulate a validation failure
+
+        Set<javax.validation.ConstraintViolation<User>> violations = validator.validate(user);
+        for (javax.validation.ConstraintViolation<User> violation : violations) {
+            System.out.println(violation.getMessage());
+        }
+    }
+}
