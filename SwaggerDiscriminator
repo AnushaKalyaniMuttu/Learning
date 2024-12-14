@@ -1,0 +1,53 @@
+/*A discriminator is a property of an object in your OpenAPI specification that is used to determine the correct type of the object when it is part of a polymorphic relationship. It works by checking the value of a particular field and then mapping that value to a specific schema (subclass).
+
+*/
+
+When the API receives a request or returns a response containing a Vehicle, it uses the vehicle_type field to determine whether the object is a Car or a Truck.
+If vehicle_type is car, it will treat the object as a Car and expect the additional doors property.
+If vehicle_type is truck, it will treat the object as a Truck and expect the additional cargo_capacity property.
+
+
+components:
+  schemas:
+    Vehicle:
+      type: object
+      properties:
+        vehicle_type:
+          type: string
+        wheels:
+          type: integer
+      discriminator:
+        propertyName: vehicle_type
+      oneOf:
+        - $ref: '#/components/schemas/Car'
+        - $ref: '#/components/schemas/Truck'
+
+    Car:
+      type: object
+      properties:
+        vehicle_type:
+          type: string
+          enum: [car]
+        wheels:
+          type: integer
+        doors:
+          type: integer
+      required:
+        - vehicle_type
+        - wheels
+        - doors
+
+    Truck:
+      type: object
+      properties:
+        vehicle_type:
+          type: string
+          enum: [truck]
+        wheels:
+          type: integer
+        cargo_capacity:
+          type: integer
+      required:
+        - vehicle_type
+        - wheels
+        - cargo_capacity
