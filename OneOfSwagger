@@ -1,0 +1,22 @@
+components:
+  schemas:
+    Animal:
+      oneOf:
+        - $ref: '#/components/schemas/Dog'
+        - $ref: '#/components/schemas/Cat'
+
+    Dog:
+      type: object
+      properties:
+        breed:
+          type: string
+        bark_volume:
+          type: string
+
+    Cat:
+      type: object
+      properties:
+        breed:
+          type: string
+        purr_volume:
+          type: string
