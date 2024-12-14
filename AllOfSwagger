@@ -1,0 +1,22 @@
+components:
+  schemas:
+    Animal:
+      allOf:
+        - $ref: '#/components/schemas/BaseAnimal'
+        - $ref: '#/components/schemas/Dog'
+
+    BaseAnimal:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+
+    Dog:
+      type: object
+      properties:
+        breed:
+          type: string
+        bark_volume:
+          type: string
