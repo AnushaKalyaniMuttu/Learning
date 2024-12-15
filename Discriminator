@@ -1,0 +1,24 @@
+components:
+  schemas:
+    Pet:
+      type: object
+      required:
+        - petType
+      properties:
+        petType:
+          type: string
+      discriminator:
+        propertyName: petType
+      oneOf:
+        - $ref: '#/components/schemas/Cat'
+        - $ref: '#/components/schemas/Dog'
+
+    Cat:
+      type: object
+      properties:
+        petType:
+          type: string
+          enum:
+            - Cat
+        huntingSkill:
+     
