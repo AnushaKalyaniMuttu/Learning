@@ -1,0 +1,21 @@
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+// Indicate this is a test for the Controller
+@WebMvcTest(MyController.class)
+public class MyControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc; // Mock environment to test HTTP requests
+
+    @Test
+    void shouldReturnOkStatus() throws Exception {
+        mockMvc.perform(get("/api/hello"))
+               .andExpect(status().isOk()); // Expect 200 OK
+    }
+}
