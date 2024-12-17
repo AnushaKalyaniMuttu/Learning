@@ -1,0 +1,21 @@
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+
+    @Cacheable("users")
+    public String getUserById(String userId) {
+        // Simulate a database call
+        simulateSlowService();
+        return "User " + userId;
+    }
+
+    private void simulateSlowService() {
+        try {
+            Thread.sleep(3000); // Simulating delay
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+}
