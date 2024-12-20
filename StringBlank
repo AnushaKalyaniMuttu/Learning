@@ -1,0 +1,7 @@
+String str = "   ";
+
+if (str.isBlank()) {
+    System.out.println("The string is blank.");
+} else {
+    System.out.println("The string is not blank.");
+}
