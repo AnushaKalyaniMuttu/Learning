@@ -1,0 +1,14 @@
+@Test
+public void testHandleRoleManagementRunTimeException_4xxError() {
+    RoleManagementRunTimeException ex = new RoleManagementRunTimeException("Bad Request", 400);
+    
+    // Mock or spy on the logger or metrics to verify that the metrics for 5xx aren't called
+    ResponseEntity<String> response = controller.handleRoleManagementRunTimeException(ex);
+    
+    // Ensure that populateErrorCustomMetrics was NOT called for 5xx
+    verify(controllerProcessor, never()).populateErrorCustomMetrics(DIMENSION_VALUE_5XX, 1L);
+    
+    // Verify the response status and message
+    assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    assertEquals("Bad Request", response.getBody());
+}
