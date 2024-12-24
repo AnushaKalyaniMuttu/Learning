@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD MyBatis Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+  <!-- Environments configuration -->
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/your_database"/>
+        <property name="username" value="your_username"/>
+        <property name="password" value="your_password"/>
+      </dataSource>
+    </environment>
+  </environments>
+
+  <!-- Type Aliases for mapping Java types -->
+  <typeAliases>
+    <typeAlias type="com.example.model.User" alias="User"/>
+  </typeAliases>
+
+  <!-- Mappers -->
+  <mappers>
+    <mapper resource="com/example/mapper/UserMapper.xml"/>
+  </mappers>
+
+</configuration>
+
+
+
+
+<!---------->
+
+
+
+
+public interface UserMapper {
+    User selectUserById(int id);
+}
+
+
+<!----->
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+  <select id="selectUserById" resultType="User">
+    SELECT id, name, email FROM users WHERE id = #{id}
+  </select>
+
+</mapper>
+
+
+
+
+<!------->
+
+SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
+SqlSession sqlSession = sqlSessionFactory.openSession();
+
