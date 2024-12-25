@@ -1,0 +1,27 @@
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+
+import java.io.File;
+import java.io.IOException;
+
+public class ReadPdf {
+    public static void main(String[] args) {
+        try {
+            // Load the PDF document
+            File file = new File("example.pdf");
+            PDDocument document = PDDocument.load(file);
+
+            // Extract text from the PDF
+            PDFTextStripper pdfStripper = new PDFTextStripper();
+            String text = pdfStripper.getText(document);
+
+            // Print the text
+            System.out.println(text);
+
+            // Close the document
+            document.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
