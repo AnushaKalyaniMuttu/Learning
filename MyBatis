@@ -1,0 +1,144 @@
+MyBatis is a popular Java framework used for working with databases. It simplifies the interaction between Java applications and relational databases by using SQL queries mapped to Java methods. 
+Unlike JPA (Java Persistence API) or Hibernate, MyBatis provides full control over SQL execution and allows you to manually write SQL queries while managing the mappings between Java objects and database rows.
+
+
+public class User {
+    private int id;
+    private String name;
+    private String email;
+
+    // Getters and Setters
+}
+
+
+
+public interface UserMapper {
+    User selectUserById(int id);
+    List<User> selectAllUsers();
+    void insertUser(User user);
+    void updateUser(User user);
+    void deleteUser(int id);
+}
+
+
+
+<mapper namespace="com.example.UserMapper">
+
+    <!-- Select a user by ID -->
+    <select id="selectUserById" resultType="com.example.User">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+    <!-- Select all users -->
+    <select id="selectAllUsers" resultType="com.example.User">
+        SELECT * FROM users
+    </select>
+
+    <!-- Insert a user -->
+    <insert id="insertUser">
+        INSERT INTO users (name, email) VALUES (#{name}, #{email})
+    </insert>
+
+    <!-- Update a user -->
+    <update id="updateUser">
+        UPDATE users SET name = #{name}, email = #{email} WHERE id = #{id}
+    </update>
+
+    <!-- Delete a user by ID -->
+    <delete id="deleteUser">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+</mapper>
+
+
+
+<configuration>
+
+    <!-- JDBC database connection settings -->
+    <properties>
+        <property name="jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="jdbc.url" value="jdbc:mysql://localhost:3306/mydb"/>
+        <property name="jdbc.username" value="root"/>
+        <property name="jdbc.password" value="password"/>
+    </properties>
+
+    <!-- Mapper configuration -->
+    <mappers>
+        <mapper resource="com/example/UserMapper.xml"/>
+    </mappers>
+
+</configuration>
+
+
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import java.io.InputStream;
+
+public class MyBatisExample {
+    public static void main(String[] args) {
+        try {
+            // Load MyBatis configuration
+            InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+            // Open session
+            try (SqlSession session = sqlSessionFactory.openSession()) {
+                // Get the mapper
+                UserMapper userMapper = session.getMapper(UserMapper.class);
+
+                // Execute SQL queries via the mapper
+                User user = userMapper.selectUserById(1);
+                System.out.println(user.getName());
+
+                List<User> users = userMapper.selectAllUsers();
+                for (User u : users) {
+                    System.out.println(u.getName());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+<select id="selectUserById" resultType="com.example.User">
+    SELECT * FROM users WHERE id = #{id}
+</select>
+
+
+
+<update id="updateUser">
+    UPDATE users SET name = #{name}, email = #{email} WHERE id = #{id}
+</update>
+
+
+
+<delete id="deleteUser">
+    DELETE FROM users WHERE id = #{id}
+</delete>
+
+
+
+public interface UserMapper {
+    
+    @Select("SELECT * FROM users WHERE id = #{id}")
+    User selectUserById(int id);
+
+    @Select("SELECT * FROM users")
+    List<User> selectAllUsers();
+
+    @Insert("INSERT INTO users (name, email) VALUES (#{name}, #{email})")
+    void insertUser(User user);
+
+    @Update("UPDATE users SET name = #{name}, email = #{email} WHERE id = #{id}")
+    void updateUser(User user);
+
+    @Delete("DELETE FROM users WHERE id = #{id}")
+    void deleteUser(int id);
+}
+
