@@ -1,0 +1,4 @@
+The sonar.java.skipUnchanged property is a configuration setting used in SonarQube (a popular code quality and static analysis tool) to control whether unchanged files should be analyzed during a SonarQube scan.
+
+Purpose of sonar.java.skipUnchanged
+This property is typically used to skip files that haven't changed since the last analysis. When enabled, SonarQube won't reanalyze the files that have not been modified, which can speed up the analysis process and reduce the load, especially in large project
