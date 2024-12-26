@@ -1,0 +1,2 @@
+The com.gorylenko.gradle-git-properties plugin is a Gradle plugin that helps to integrate Git information into your project build process.
+It is primarily used to add information about the Git repository (e.g., commit hash, branch name, tags, and other Git-related metadata) into the generated build artifacts, such as JARs or WARs.
