@@ -1,0 +1,3 @@
+In Gradle, ext is a shorthand for "extra properties".
+It is a way to define additional properties in a Gradle build script, which can be accessed anywhere within the build, across tasks, and even in different modules.
+These properties are typically used for configuration purposes or for sharing values between different parts of a build script.
