@@ -1,0 +1,24 @@
+package com.test.constants;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
+import static org.assertj.core.api.AssertionsForClassTypes.catchThrowableOfType;
+import static org.assertj.core.api.BDDAssertions.then;
+
+@MockitoSettings(strictness = Strictness.STRICT_STUBS)
+class MessagesTest {
+
+  @Test
+  void privateConstructor_ThrowException() throws Exception {
+    Constructor<Constants> constructor = Constants.class.getDeclaredConstructor();
+    constructor.setAccessible(true);
+    InvocationTargetException thrown =
+        catchThrowableOfType(constructor::newInstance, InvocationTargetException.class);
+    then(thrown).hasCauseExactlyInstanceOf(UnsupportedOperationException.class);
+  }
+}
