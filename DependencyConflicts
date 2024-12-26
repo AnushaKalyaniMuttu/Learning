@@ -1,0 +1,11 @@
+gradle dependencyInsight --configuration runtimeClasspath --dependency logback-classic
+
+
+mvn dependency:tree | grep logback-classic
+
+
+mvn dependency:resolve -Dincludes=ch.qos.logback:logback-classic
+
+
+mvn dependency:tree -Dscope=runtime
+
