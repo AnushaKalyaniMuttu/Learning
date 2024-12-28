@@ -1,0 +1,67 @@
+The apply plugin: 'application' line in a Gradle build script is used to apply the Application plugin. 
+  This plugin provides tasks that make it easier to build and run Java-based applications from Gradle, typically used for command-line applications.
+
+What Does the application Plugin Do?
+When you apply the application plugin in Gradle, it automatically adds several tasks and configurations that simplify the creation of a runnable Java application. These include:
+
+Creating an executable JAR or WAR file: It packages your application into an executable format.
+Running your application: It allows you to run your application with a simple command (gradle run).
+Setting up a main class: It configures a default entry point (the main class) for your application.
+Creating scripts for running: It generates platform-specific shell or batch scripts that can be used to run your application on Linux, macOS, and Windows.
+Example of Using apply plugin: 'application' in build.gradle
+
+plugins {
+    id 'java'             // Apply the Java plugin to build a Java project
+    id 'application'      // Apply the Application plugin to package and run a Java application
+}
+
+repositories {
+    mavenCentral()        // Use Maven Central repository to fetch dependencies
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'  // Example dependency (Spring Boot starter)
+}
+
+mainClassName = 'com.example.Main' // Specify the main class for the application
+---
+  Key Components of This Configuration
+plugins { id 'java' }: This is the Java plugin that enables Gradle to build Java projects.
+plugins { id 'application' }: This is the Application plugin that enables the tasks and configurations for running Java applications.
+mainClassName = 'com.example.Main': This specifies the main class of your application. 
+  Gradle will look for the main method in this class to run the application. Replace 'com.example.Main' with the fully qualified name of your own main class.
+
+
+
+    Tasks Added by the Application Plugin
+After applying the application plugin, several tasks and functionalities are automatically added to your project:
+
+1. run Task
+The run task is the most commonly used task added by the Application plugin. It allows you to run your Java application directly from Gradle.
+
+
+gradle run
+
+
+
+  2.distZip and distTar Tasks
+These tasks package your application into distributable formats like .zip and .tar archives.
+
+  gradle distZip      // Creates a ZIP distribution of the application
+gradle distTar      // Creates a TAR distribution of the application
+
+
+
+3.installDist Task
+This task generates a distribution of the application, including the necessary files (like scripts) to run it. This can be used to prepare your application for deployment.
+
+
+gradle installDist
+
+
+
+4.startScripts Task
+This task creates platform-specific shell scripts (.sh for Unix/Linux and .bat for Windows) for running the application. These scripts are placed in the build/scripts/ directory
+
+gradle startScripts
+
