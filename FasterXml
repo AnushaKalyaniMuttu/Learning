@@ -1,0 +1,120 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JacksonExample {
+    public static void main(String[] args) throws Exception {
+        // Sample POJO
+        Person person = new Person("John", 25);
+
+        // Create an ObjectMapper instance
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Convert the Java object to a JSON string
+        String jsonString = objectMapper.writeValueAsString(person);
+
+        // Print the JSON string
+        System.out.println(jsonString);  // Output: {"name":"John","age":25}
+    }
+}
+
+class Person {
+    private String name;
+    private int age;
+
+    // Constructor
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getters and Setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
+
+
+
+---------------
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JacksonExample {
+    public static void main(String[] args) throws Exception {
+        // JSON string
+        String jsonString = "{\"name\":\"John\",\"age\":25}";
+
+        // Create an ObjectMapper instance
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Convert the JSON string to a Java object
+        Person person = objectMapper.readValue(jsonString, Person.class);
+
+        // Print the Java object
+        System.out.println(person.getName());  // Output: John
+        System.out.println(person.getAge());   // Output: 25
+    }
+}
+-------
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JacksonExample {
+    public static void main(String[] args) throws Exception {
+        // JSON string
+        String jsonString = "{\"name\":\"John\",\"age\":25}";
+
+        // Create an ObjectMapper instance
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Convert the JSON string to JsonNode
+        JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+        // Extract fields from the JsonNode
+        String name = jsonNode.get("name").asText();
+        int age = jsonNode.get("age").asInt();
+
+        // Print the extracted values
+        System.out.println("Name: " + name);  // Output: Name: John
+        System.out.println("Age: " + age);    // Output: Age: 25
+    }
+}
+
+-----
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JacksonExample {
+    public static void main(String[] args) throws Exception {
+        // Sample POJO
+        Person person = new Person("John", 25);
+
+        // Create an ObjectMapper instance
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Convert the Java object to a JSON string with pretty printing
+        String jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(person);
+
+        // Print the JSON string with pretty print
+        System.out.println(jsonString);
+    }
+}
+
+-----
+
+writeValueAsString(Object value): Serialize a Java object to JSON string.
+readValue(String content, Class<T> valueType): Deserialize JSON string into a Java object.
+readTree(String content): Deserialize JSON string into JsonNode.
+writerWithDefaultPrettyPrinter(): Returns a writer for pretty-printing JSON.
+readValue(File src, Class<T> valueType): Deserialize JSON from a file.
+treeToValue(JsonNode n, Class<T> valueType): Convert a JsonNode into a Java object.
