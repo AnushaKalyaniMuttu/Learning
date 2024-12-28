@@ -1,0 +1,45 @@
+@MapperScan is used to configure the package scanning of MyBatis mapper interfaces.
+It simplifies the process of creating mappers by automatically detecting them in the specified package.
+It can be used at the configuration class level, typically in a Spring Boot or Spring application, to configure MyBatis mapper scanning.
+---
+
+<dependencies>
+    <!-- MyBatis Starter for Spring Boot -->
+    <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>2.2.0</version>
+    </dependency>
+    <!-- Spring Boot Starter for Data JPA -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+</dependencies>
+-----
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+@MapperScan("com.example.mapper")  // Scanning package for mapper interfaces
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+}
+
+---
+
+The @MapperScan("com.example.mapper") will automatically scan the com.example.mapper package for MyBatis mapper interfaces and register them as Spring beans.
+Note: The @MapperScan can be used on either the main application class (as shown) or on a separate configuration class.
+
+
+---
+import org.apache.ibatis.annotations.Select;
+
+public interface UserMapper {
+    @Select("SELECT * FROM users WHERE id = #{id}")
+    User findById(int id);
+}
