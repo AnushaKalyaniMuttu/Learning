@@ -1,0 +1,46 @@
+import React, { Suspense, useState, useEffect } from 'react';
+
+// Simulate a slow data fetching function
+function fetchData() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("Fetched Data!"), 3000);
+  });
+}
+
+function useAsyncData() {
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    let isMounted = true;
+    fetchData().then((result) => {
+      if (isMounted) {
+        setData(result);
+      }
+    });
+    return () => isMounted = false; // cleanup on unmount
+  }, []);
+  
+  if (data === null) {
+    throw fetchData(); // Throwing a promise will trigger Suspense fallback
+  }
+
+  return data;
+}
+
+function DataComponent() {
+  const data = useAsyncData();
+  return <div>{data}</div>;
+}
+
+function App() {
+  return (
+    <div>
+      <h1>React Suspense with `useEffect`</h1>
+      <Suspense fallback={<div>Loading async data...</div>}>
+        <DataComponent />
+      </Suspense>
+    </div>
+  );
+}
+
+export default App;
