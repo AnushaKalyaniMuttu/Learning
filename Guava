@@ -1,0 +1,50 @@
+1.
+List<String> list = Lists.newArrayList("A", "B", "C");
+List<List<String>> partitions = Lists.partition(list, 2);
+
+
+2.
+Preconditions.checkArgument(age > 18, "Age must be greater than 18");
+
+
+3.Set<Integer> set1 = Sets.newHashSet(1, 2, 3);
+Set<Integer> set2 = Sets.newHashSet(2, 3, 4);
+Set<Integer> difference = Sets.difference(set1, set2); // {1}
+
+
+4.
+Map<String, Integer> map = Maps.newHashMap();
+map.put("one", 1);
+map.put("two", 2);
+
+
+5.Optional<String> name = Optional.of("Guava");
+name.ifPresent(System.out::println); // Prints "Guava"
+
+
+6.
+Cache<String, String> cache = CacheBuilder.newBuilder()
+    .maximumSize(100)
+    .expireAfterWrite(10, TimeUnit.MINUTES)
+    .build();
+cache.put("key", "value");
+String value = cache.getIfPresent("key"); // Retrieves "value"
+
+
+7.String result = Strings.padStart("42", 5, '0'); // "00042"
+
+
+8.Range<Integer> range = Range.closed(1, 10);
+boolean contains = range.contains(5); // true
+
+
+9.ListeningExecutorService executor = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
+ListenableFuture<Integer> future = executor.submit(() -> 42);
+future.addListener(() -> System.out.println("Computation completed!"), executor);
+
+
+10.
+List<String> lines = Files.readLines(new File("file.txt"), Charsets.UTF_8);
+Files.write("Hello, World!", new File("output.txt"), Charsets.UTF_8);
+
+
