@@ -1,0 +1,23 @@
+Class Components:
+Class components were used in older versions of React, but functional components are now recommended for most cases (especially with the introduction of hooks).
+
+
+import React, { Component } from 'react';
+
+class Greeting extends Component {
+  render() {
+    return <h1>Hello, World!</h1>;
+  }
+}
+
+export default Greeting;
+---
+
+
+import React from 'react';
+
+function Greeting() {
+  return <h1>Hello, World!</h1>;
+}
+
+export default Greeting;
