@@ -1,0 +1,11 @@
+@ManyToMany(fetch = FetchType.EAGER)
+@JoinTable(
+    name = "user_role_mapping",  // Custom name for the join table
+    joinColumns = @JoinColumn(name = "user_fk"),  // Custom foreign key for User
+    inverseJoinColumns = @JoinColumn(name = "role_fk")  // Custom foreign key for Role
+)
+private List<Role> roles;
+
+
+The inverseJoinColumns attribute in 
+@JoinTable is used to specify the foreign key column in the join table that references the associated (inverse) entity.
