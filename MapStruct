@@ -1,0 +1,29 @@
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+@Mapper
+public interface CarMapper {
+
+    CarMapper INSTANCE = Mappers.getMapper(CarMapper.class);
+
+    CarDTO carToCarDTO(Car car);
+
+    Car carDTOToCar(CarDTO carDTO);
+}
+---
+public class Car {
+    private String make;
+    private String model;
+
+    // Getters and Setters
+}
+
+public class CarDTO {
+    private String make;
+    private String model;
+
+    // Getters and Setters
+}
+---
+Car car = new Car("Toyota", "Camry");
+CarDTO carDTO = CarMapper.INSTANCE.carToCarDTO(car);
