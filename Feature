@@ -1,0 +1,96 @@
+Feature: User Registration
+
+  Scenario: Register a new user successfully
+    Given the user provides their registration details
+    When the user submits the registration form
+    Then the user should be created and receive a confirmation email
+
+  Scenario: Register a user with invalid email
+    Given the user provides an invalid email
+    When the user submits the registration form
+    Then the user should receive an error message
+---
+package com.yourpackage.steps;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+public class UserRegistrationSteps {
+
+    @Autowired
+    private MockMvc mockMvc; // to simulate HTTP requests
+
+    private String userJson;
+
+    @Given("the user provides their registration details")
+    public void theUserProvidesTheirRegistrationDetails() {
+        // Sample user data in JSON format
+        userJson = "{\"email\": \"john.doe@example.com\", \"password\": \"password123\"}";
+    }
+
+    @Given("the user provides an invalid email")
+    public void theUserProvidesAnInvalidEmail() {
+        // Invalid email example
+        userJson = "{\"email\": \"invalid-email\", \"password\": \"password123\"}";
+    }
+
+    @When("the user submits the registration form")
+    public void theUserSubmitsTheRegistrationForm() throws Exception {
+        mockMvc.perform(post("/api/users/register")
+                .contentType("application/json")
+                .content(userJson))  // send the user data as a POST request
+                .andExpect(status().isCreated());  // For valid case, expects 201 status
+    }
+
+    @Then("the user should be created and receive a confirmation email")
+    public void theUserShouldBeCreatedAndReceiveAConfirmationEmail() throws Exception {
+        // Assuming you validate the response body
+        mockMvc.perform(post("/api/users/register")
+                .contentType("application/json")
+                .content(userJson))
+                .andExpect(jsonPath("$.email").value("john.doe@example.com"))
+                .andExpect(status().isCreated());
+    }
+
+    @Then("the user should receive an error message")
+    public void theUserShouldReceiveAnErrorMessage() throws Exception {
+        // For invalid email, check for bad request
+        mockMvc.perform(post("/api/users/register")
+                .contentType("application/json")
+                .content(userJson))
+                .andExpect(status().isBadRequest())  // For invalid email, expect HTTP 400
+                .andExpect(jsonPath("$.errors[0].message").value("Invalid email format"));
+    }
+}
+---
+package com.yourpackage.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("com.yourpackage.steps")  // Scans your step definitions
+public class CucumberTestConfig {
+}
+---
+package com.yourpackage;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+    features = "classpath:features",  // Path to your feature files
+    glue = "com.yourpackage.steps",   // Path to your step definition classes
+    plugin = {"pretty", "html:target/cucumber-reports"}  // Generate pretty reports
+)
+public class RunCucumberTest {
+}
