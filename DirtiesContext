@@ -1,0 +1,9 @@
+What is @DirtiesContext?
+In Spring Testing (specifically with Spring Test or Spring Boot Test), 
+the @DirtiesContext annotation is used to indicate that the ApplicationContext associated with a test should be closed and reloaded after the test completes.
+This is particularly useful when a test modifies the application context or beans in a way that might impact subsequent tests.
+
+Why Use @DirtiesContext?
+Spring tests often run multiple tests in a single context to maximize performance by reusing the application context across tests.
+However, some tests might modify the context in a way that affects other tests (e.g., changing the state of beans or altering the configuration).
+In these cases, using @DirtiesContext ensures that Spring will invalidate the current context and create a new one for the next test.
