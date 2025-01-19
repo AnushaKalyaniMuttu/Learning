@@ -1,0 +1,13 @@
+ public int minimumTotal(List<List<Integer>> triangle) {
+        // Start from the second-last row and update each element
+        for (int row = triangle.size() - 2; row >= 0; row--) {
+            for (int col = 0; col <= row; col++) {
+                // Update the element to be the minimum path sum from the current position
+                int minSum = Math.min(triangle.get(row + 1).get(col), triangle.get(row + 1).get(col + 1));
+                triangle.get(row).set(col, triangle.get(row).get(col) + minSum);
+            }
+        }
+
+        // The top element now contains the minimum path sum
+        return triangle.get(0).get(0);
+    }
