@@ -1,0 +1,16 @@
+
+class Solution {
+  public List<Integer> getRow(int rowIndex) {
+        List<Integer> row = new ArrayList<>();
+        row.add(1);  // The first element is always 1.
+
+        // Iterate to calculate each element in the row
+        for (int k = 1; k <= rowIndex; k++) {
+            // Calculate the next element in the row using the previous one
+            long value = (long) row.get(k - 1) * (rowIndex - (k - 1)) / k;
+            row.add((int) value);
+        } 
+
+        return row;
+    }
+}
