@@ -1,0 +1,21 @@
+class Solution {
+     public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;  // Initialize with the highest possible value
+        int maxProfit = 0;  // Initialize maxProfit to 0
+
+        for (int price : prices) {
+            // Update minPrice if we find a lower price
+            if (price < minPrice) {
+                minPrice = price;
+            }
+            // Calculate profit if selling at the current price
+            int profit = price - minPrice;
+            // Update maxProfit if the current profit is greater
+            if (profit > maxProfit) {
+                maxProfit = profit;
+            }
+        }
+
+        return maxProfit;  // Return the maximum profit found
+    }
+}
