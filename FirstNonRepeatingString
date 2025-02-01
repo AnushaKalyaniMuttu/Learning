@@ -1,0 +1,8 @@
+Optional<Character> firstNonRepeat= s.chars().mapToObj(c->(char)c)
+.collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new, Collectors.counting)))
+.entryset().stream()
+.filter(e->e.value()==1)
+.map(Map.Entry::getKey)
+.findFirst();
+
+firstNonRepeat.ifPresent(System.out::println);
