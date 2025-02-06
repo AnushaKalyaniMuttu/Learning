@@ -1,0 +1,46 @@
+import java.util.concurrent.CyclicBarrier;
+
+public class CyclicBarrierExample {
+
+    public static void main(String[] args) {
+        // Number of threads (parties) that will synchronize
+        int numberOfThreads = 3;
+
+        // Barrier action to perform when all threads reach the barrier
+        Runnable barrierAction = () -> {
+            System.out.println("All threads have reached the barrier. Performing the barrier action.");
+        };
+
+        // Create the CyclicBarrier
+        CyclicBarrier barrier = new CyclicBarrier(numberOfThreads, barrierAction);
+
+        // Start the threads
+        for (int i = 0; i < numberOfThreads; i++) {
+            new Thread(new Task(barrier)).start();
+        }
+    }
+
+    static class Task implements Runnable {
+        private final CyclicBarrier barrier;
+
+        public Task(CyclicBarrier barrier) {
+            this.barrier = barrier;
+        }
+
+        @Override
+        public void run() {
+            try {
+                System.out.println(Thread.currentThread().getName() + " is performing task before the barrier.");
+                // Simulate task (sleep)
+                Thread.sleep((int) (Math.random() * 1000));
+                
+                // Wait for other threads at the barrier
+                barrier.await();
+                
+                System.out.println(Thread.currentThread().getName() + " is performing task after the barrier.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
