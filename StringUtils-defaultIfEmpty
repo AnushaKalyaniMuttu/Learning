@@ -1,0 +1,9 @@
+import org.apache.commons.lang3.StringUtils;
+
+public class Main {
+    public static void main(String[] args) {
+        String input = "";
+        String result = StringUtils.defaultIfEmpty(input, "Default Value");
+        System.out.println(result); // Output: Default Value
+    }
+}
