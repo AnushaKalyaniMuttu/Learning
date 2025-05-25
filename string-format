@@ -1,0 +1,15 @@
+public class Main {
+    public static void main(String[] args) {
+        String name = "Alice";
+        int age = 30;
+
+        String formatted = String.format("Name: %s, Age: %d", name, age);
+        System.out.println(formatted);
+        // Output: Name: Alice, Age: 30
+
+        int[] numbers = {1, 2, 3};
+        // Arrays are printed using Arrays.toString to show nicely
+        System.out.println(String.format("Numbers: %s", java.util.Arrays.toString(numbers)));
+        // Output: Numbers: [1, 2, 3]
+    }
+}
